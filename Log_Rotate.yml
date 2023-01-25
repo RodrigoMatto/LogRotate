@@ -1,0 +1,22 @@
+---
+- name: Playbook para agregar el cron job del LogRotate
+  hosts: all
+  become: yes
+  tasks:
+    - name: Make LogRotate run hourly 
+      copy:
+        src: /etc/cron.daily/logrotate
+        dest: /etc/cron.hourly/logrotate
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '700'
+
+    - name: Copiar el archivo de LogRotate a Logrotate.d 
+      copy:
+        src: files/Jboss_Log_Rotate
+        dest: /etc/logrotate.d/Jboss_Log_Rotate
+        owner: root
+        group: root
+        mode: '644'
+...

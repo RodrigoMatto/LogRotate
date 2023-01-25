@@ -1,0 +1,8 @@
+/opt/jboss-eap-7.1/domain/servers/*/log/*.log /opt/jboss-eap-7.1/domain/log/*.log {
+    size 1G
+    rotate 5
+    missingok
+    notifempty
+    copytruncate
+    dateext dateformat _%Y-%m-%d_%Hhs.Logrotate
+}

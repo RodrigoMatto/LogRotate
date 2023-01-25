@@ -1,0 +1,23 @@
+---
+- name: Playbook para eliminar logs viejos 
+  hosts: all 
+  become: true
+  tasks:
+
+  - name: Playbook to create a cron job to delete olds log files from Itau's Apps 
+    cron:
+      name: "Remove old Apps's Logs"
+      user: root
+      minute: "00"
+      hour: "1"
+      job: find /opt/jboss-eap-7.1/domain/log/ -type f -name '*.log*' -mtime +{{ log_rotate_time }} -delete;
+
+
+
+  - name: Playbook to create a cron job to delete olds log files from jboss
+    cron:
+      name: "Remove old Jboss's server Logs"
+      user: root
+      minute: "00"
+      hour: "1"
+      job: find /opt/jboss-eap-7.1/domain/servers/*/log/ -type f -name '*.log*' -mtime +{{ log_rotate_time }} -delete;
